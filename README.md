@@ -84,3 +84,76 @@ Arguments:
 fit: results from Naive.Est(), IPW.Est(), or CW.Est()
 nR: number of regions
 ```
+
+
+simulation.R
+```
+This code provides functions for simulation studies including: 1) MRCT data generation, 2) Simulation comparing 3 methods, 3) True RMST, and 4) result output
+
+1) function "gen.dat.2x3r()", generating MRCT data
+Arguments:
+n: sample sizes in each region, vector of length nR
+r: parameters used in the sampling score model, nR-by-3 matrix
+a: parameters used in the time-to-event outcome model, vector of length 12
+lambda: scale parameters for baseline hazard for two treatment groups, vector of length 2
+gamma: shape parameters for baseline hazard for two treatment groups, vector of length 2
+
+Values:
+a data frame including:
+A = treatment indicator
+X = covariates
+R = region indicator
+time = time-to-event
+status = censoring indicator
+
+
+2) function "MRCT()", simulation comparing 3 methods
+Arguments:
+seed
+S: iterations
+n: sample sizes in each region, vector of length nR
+r: parameters used in the sampling score model, nR-by-3 matrix
+a: parameters used in the time-to-event outcome model, vector of length 12
+lambda: scale parameters for baseline hazard for two treatment groups, vector of length 2
+gamma: shape parameters for baseline hazard for two treatment groups, vector of length 2
+tau: time horizon for RMST
+
+Values:
+a list including:
+mu = mean of regional RMST and RMST difference
+sd = sd of regional RMST and RMST difference
+p = coverage probabilities of regional RMST and RMST difference
+
+
+
+3) function "true.rmst()", function for calculating true RMST
+Arguments:
+tau: time horizon for RMST
+n: sample sizes in each region, vector of length nR
+r: parameters used in the sampling score model, nR-by-3 matrix
+a: parameters used in the time-to-event outcome model, vector of length 12
+lambda: scale parameters for baseline hazard for two treatment groups, vector of length 2
+gamma: shape parameters for baseline hazard for two treatment groups, vector of length 2
+
+Values:
+true regional RMST and RMST difference
+
+4) function "res.output()", function for output result from MRCT()
+Arguments:
+res: results from MRCT()
+tau: time horizon for RMST
+n: sample sizes in each region, vector of length nR
+r: parameters used in the sampling score model, nR-by-3 matrix
+a: parameters used in the time-to-event outcome model, vector of length 12
+lambda: scale parameters for baseline hazard for two treatment groups, vector of length 2
+gamma: shape parameters for baseline hazard for two treatment groups, vector of length 2
+
+Values:
+a data frame including:
+mean, bias, sd, se, and coverage probability of regional RMST
+
+
+
+
+
+```
