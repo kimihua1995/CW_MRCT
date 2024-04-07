@@ -12,7 +12,6 @@ library(geex)
 
 source("source_estimator.R")
 source("source_simulation.R")
-source("my_survRM2.R")
 
 
 
