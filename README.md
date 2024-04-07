@@ -1,10 +1,9 @@
-# Inference of treatment effect and its regional modifiers using the restricted mean survival time in clinical trials conducted in multiple regions
+# Inference of treatment effect and its regional modifiers using the restricted mean survival time in multi-regional clinical trials
+This project contains the R codes for simulation study in the paper
 
-This project contains the R codes for simulation study for MRCT analysis using RMST by calibration weighting method
-
-source_MRCT.R
+source_estimator.R
 ```
-This code provides functions including 1) weighted RMST (SD), 2) 3 methods, Naive, IPW, and CW, that we compared in the simulation study, 3) regional consistency test for treatment effect.
+This code provides functions for generating weighted estimator of region-specific average RMST difference
 
 1) function "my_akm_rmst()", calculating weighted RMST
 Arguments:
