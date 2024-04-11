@@ -63,6 +63,9 @@ SMD(df2_mis$X2,df2_mis$R,1,1)
 #############################
 
 
+### load saved results
+load("res.RData")
+
 
 
 ########### 
