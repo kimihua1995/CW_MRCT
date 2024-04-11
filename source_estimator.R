@@ -32,8 +32,9 @@ cw2 <- function(df,nR,g){
 
 
 
-
-# weighted Kaplan Meier estimator
+#################################
+#1) Functions for weighted Kaplan Meier estimator
+#################################
 my_akm_rmst <- function(time, status, weight=NULL, tau=NULL){
   
   data <- data.frame(time, status, weight)
@@ -72,7 +73,7 @@ my_akm_rmst <- function(time, status, weight=NULL, tau=NULL){
   return(data.frame(mu = rmst, V = rmst_var))     
 }
 
-
+# Weighted KM Estimator
 W.KM.Est <- function(df,nR,p,tau){
   EW.mu <- EW.sd <- NULL
   for (r in 1:nR){
@@ -89,8 +90,9 @@ W.KM.Est <- function(df,nR,p,tau){
 }
 
 
-
-# weighted G-formula estimator
+#################################
+#2) Functions for weighted G-formula estimator
+#################################
 my.func_surv <- function(y, d){
   #--input--
   #y=time
@@ -159,7 +161,6 @@ my.func_surv <- function(y, d){
 
 
 
-
 my.rmst2reg=function(y, delta, arm, x, tau, w=rep(1,length(y))){
 
     n=length(y)
@@ -207,7 +208,7 @@ my.rmst2reg=function(y, delta, arm, x, tau, w=rep(1,length(y))){
     return(fitt)
 }
 
-
+# IPCW RMST regression (correct model)
 fit.rmst.reg <- function(df, tau){
   cov <- data.frame(A=df$A, X1=df$X1, X2=df$X2,
                     AX1=df$A*df$X1, AX2=df$A*df$X2)
@@ -219,7 +220,7 @@ fit.rmst.reg <- function(df, tau){
   return(rmst_fit)
 }
 
-
+# IPCW RMST regression (mis-specified model)
 fit.rmst.reg.mis <- function(df, tau){
   cov <- data.frame(A=df$A, X1=df$X1, AX1=df$A*df$X1)
   rmst_fit <- my.rmst2reg(y = df$Y,
@@ -231,7 +232,7 @@ fit.rmst.reg.mis <- function(df, tau){
 }
 
 
-
+# weighted GF estimator (correct outcome model)
 W.GF.Est <- function(df, nR, p, tau){
   EW.mu <- EW.sd <- NULL
   for (r in 1:nR){
@@ -261,7 +262,7 @@ W.GF.Est <- function(df, nR, p, tau){
 
 
 
-
+# weighted GF estimator (mis-specified outcome model)
 W.GF.Est.mis <- function(df, nR, p, tau){
   EW.mu <- EW.sd <- NULL
   for (r in 1:nR){
@@ -288,7 +289,9 @@ W.GF.Est.mis <- function(df, nR, p, tau){
 }
 
 
-# weighted Hajek estimator
+######################################
+#3) Functions for weighted Hajek estimator
+######################################
 W.HJ.Est <- function(df, nR, p, tau){
   m_fun <- function(data){
     p <- data$p
@@ -355,7 +358,10 @@ W.HJ.Est <- function(df, nR, p, tau){
 
 
 
-# weighted Augmented estimator
+######################################
+#3) Functions for weighted Augmented estimator
+######################################
+# weighted AG estimator (correct outcome model)
 W.AG.Est <- function(df, nR, p, tau){
   m_fun <- function(data){
     p <- data$p
@@ -434,7 +440,7 @@ W.AG.Est <- function(df, nR, p, tau){
 
 
 
-
+# weighted AG estimator (mis-specified outcome model)
 W.AG.Est.mis <- function(df, nR, p, tau){
   m_fun <- function(data){
     p <- data$p
