@@ -1,4 +1,5 @@
 # Generate Regional Data
+## Log-linear sampling
 gen.dat1 <- function(n,r,a,lambda,gamma){
   a <- matrix(a,ncol = 1)
   X <- matrix(NA,nrow=1,ncol = 2)
@@ -45,7 +46,7 @@ gen.dat1 <- function(n,r,a,lambda,gamma){
 }
 
 
-
+## Logistic-nonlinear sampling
 gen.dat2 <- function(n,r,a,lambda,gamma){
   a <- matrix(a,ncol = 1)
   X <- matrix(NA,nrow=1,ncol = 2)
@@ -95,7 +96,7 @@ gen.dat2 <- function(n,r,a,lambda,gamma){
 
 
 
-
+## true values of the RMST and RMST difference
 true.rmst.fix <- function(tau,nR,a,lambda,gamma){
   fxr <- function(x1,x2){
     dnorm(x2,1,1)
@@ -161,6 +162,7 @@ region.diff <- function(res,nR){
 }
 
 
+## test for regional consistency
 region.cons.test <- function(fit, nR){
   rmst_diff <- matrix(fit$mu[3*(1:nR)], ncol = 1)
   rmst_diff_sd <- fit$sd[3*(1:nR)]
@@ -179,7 +181,7 @@ region.cons.test <- function(fit, nR){
 
 
 
-
+## code for output all proposed estimators given weight
 gen.est <- function(df,nR,p,tau){
   fit.km <- W.KM.Est(df,nR,p,tau)
   KM.mu <- fit.km$mu
@@ -237,7 +239,7 @@ gen.est <- function(df,nR,p,tau){
 
 
 
-
+## code for simulation 
 sim.MRCT.Est <- function(seed,S=1000,n,a,r,tau,lambda,gamma,g,gen){
   nR <- ncol(r)
   mu.Naive.list <- sd.Naive.list <- matrix(NA, nrow = S, ncol = nR*3)
@@ -343,7 +345,7 @@ sim.MRCT.Est <- function(seed,S=1000,n,a,r,tau,lambda,gamma,g,gen){
 
 
 
-
+# check the results
 res.check <- function(res_mu,res_sd,rmst_true){
   rmst <- colMeans(res_mu, na.rm = T); l <- length(rmst)
   
@@ -383,7 +385,7 @@ res.check <- function(res_mu,res_sd,rmst_true){
 
 
 
-
+# absolute standardized mean difference
 SMD <- function(X,R,mu,sd){
   nR <- length(table(R))
   SMD_x <- rep(NA, nR)
